@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # vue2todolist
 
 ## Project setup
