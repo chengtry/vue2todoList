@@ -22,11 +22,7 @@ export default {
   },
   data() {
     return {
-        todos:[
-          {id:'001',title:'吃饭',done:true},
-          {id:'002',title:'睡觉',done:false},
-          {id:'003',title:'写代码',done:true}
-        ]
+        todos:JSON.parse(localStorage.getItem('todos')) || []
     }
   },
   methods: {
@@ -61,6 +57,16 @@ export default {
       this.todos = this.todos.filter((todo)=>{
         return !todo.done;
       })
+    }
+  },
+  watch:{
+    todos:{
+      //深度监视
+      deep:true,
+      handler(value){
+        //放入浏览器本地存储
+        localStorage.setItem('todos',JSON.stringify(value));
+      }
     }
   }
 }
