@@ -13,7 +13,8 @@
 <script>
     export default {
         name: 'MyFooter',
-        props:['todos','checkAllTodo','clearTodo'],
+        //props:['todos','checkAllTodo','clearTodo'],
+        props:['todos'],
         computed:{
             total(){
                 return this.todos.length;
@@ -38,11 +39,13 @@
             //全选或者取消全选
             checkAll(e){
                 //console.log(e.target.checked)
-                this.checkAllTodo(e.target.checked);
+                //this.checkAllTodo(e.target.checked);
+                this.$emit('checkAllTodo',e.target.checked); //改为自定义事件传递消息
             },
             //清除已完成任务
             clear(){
-                this.clearTodo();
+                //this.clearTodo();
+                this.$emit('clearTodo'); //改为自定义事件传递消息
             }
         },
     }

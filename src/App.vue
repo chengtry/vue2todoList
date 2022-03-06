@@ -2,9 +2,13 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <MyHeader :addTodo="addTodo"></MyHeader>
+        <!-- <MyHeader :addTodo="addTodo"></MyHeader> -->
+        <!--父组件给子组件传递消息，改为自定义事件传递消息-->
+        <MyHeader @addTodo="addTodo"></MyHeader>
         <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"></MyList>
-        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearTodo="clearTodo"></MyFooter>
+        <!-- <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearTodo="clearTodo"></MyFooter> -->
+        <!--改为自定义事件传递消息-->
+        <MyFooter :todos="todos" @checkAllTodo="checkAllTodo" @clearTodo="clearTodo"></MyFooter>
       </div>
     </div>
   </div>

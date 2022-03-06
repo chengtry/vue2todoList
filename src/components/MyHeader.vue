@@ -8,7 +8,7 @@
     import {nanoid} from 'nanoid'
     export default {
         name: 'MyHeader',
-        props:['addTodo'],
+        //props:['addTodo'], //改为自定义事件，不用props
         data() {
             return {
                 title:''
@@ -21,7 +21,8 @@
                     //将用户的输入包装成一个todo对象
                     const todoObject = {id:nanoid(),title:this.title,done:false};
                     //通知App组件去添加一个todo对象
-                    this.addTodo(todoObject);
+                    //this.addTodo(todoObject);
+                    this.$emit('addTodo',todoObject);//改为自定义事件传递消息
                 }else{
                     alert('输入不能为空！');
                 }
