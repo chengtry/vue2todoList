@@ -5,7 +5,9 @@
         <!-- <MyHeader :addTodo="addTodo"></MyHeader> -->
         <!--父组件给子组件传递消息，改为自定义事件传递消息-->
         <MyHeader @addTodo="addTodo"></MyHeader>
-        <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"></MyList>
+        <!-- <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"></MyList> -->
+        <!--改为全局事件总线进行组件之间通信-->
+        <MyList :todos="todos"></MyList>
         <!-- <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearTodo="clearTodo"></MyFooter> -->
         <!--改为自定义事件传递消息-->
         <MyFooter :todos="todos" @checkAllTodo="checkAllTodo" @clearTodo="clearTodo"></MyFooter>
@@ -72,7 +74,15 @@ export default {
         localStorage.setItem('todos',JSON.stringify(value));
       }
     }
-  }
+  },
+  mounted() {
+    this.$bus.$on('checkTodo',this.checkTodo)
+    this.$bus.$on('deleteTodo',this.deleteTodo)
+  },
+  beforeDestroy() {
+    this.$bus.$ff('checkTodo')
+    this.$bus.$ff('deleteTodo')
+  },
 }
 </script>
 

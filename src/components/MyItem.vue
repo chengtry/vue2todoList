@@ -13,16 +13,19 @@
 <script>
     export default {
         name: 'MyItem',
-        props:['todoObject',"checkTodo","deleteTodo"],
+        //props:['todoObject',"checkTodo","deleteTodo"],
+        props:['todoObject'],
         methods: {
             //勾选或者取消勾选
             handleCheck(id){
                 //通知App组件并将对应的todo对象的done值取反
-                this.checkTodo(id);
+                //this.checkTodo(id);
+                this.$bus.$emit('checkTodo',id); //改为全局事件总线进行组件之间通信
             },
             //删除指定id的todo对象
             handleDelete(id){
-                this.deleteTodo(id);
+                //this.deleteTodo(id);
+                this.$bus.$emit('deleteTodo',id); //改为全局事件总线进行组件之间通信
             }
         },
     }

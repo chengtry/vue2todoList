@@ -1,12 +1,17 @@
 <template>
     <div>
         <ul class="todo-main">
-            <MyItem 
+            <!-- <MyItem 
                 v-for="todoObject in todos" 
                 :key="todoObject.id" 
                 :todoObject="todoObject" 
                 :checkTodo="checkTodo"
                 :deleteTodo="deleteTodo">
+            </MyItem> -->
+            <MyItem 
+                v-for="todoObject in todos" 
+                :key="todoObject.id" 
+                :todoObject="todoObject" >
             </MyItem>
         </ul>
     </div>
@@ -19,7 +24,8 @@
         components:{
             MyItem,
         },
-        props:['todos',"checkTodo","deleteTodo"]
+        //props:['todos',"checkTodo","deleteTodo"]
+        props:['todos'] //改为全局事件总线进行组件之间通信
     }
 </script>
 
