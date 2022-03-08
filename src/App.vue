@@ -44,6 +44,14 @@ export default {
           }
       });
     },
+    //更新一个todo对象的title
+    updateTodo(id,title){
+      this.todos.forEach((todo) => {
+          if(todo.id === id){
+            todo.title = title;
+          }
+      });
+    },
     //删除一个todo对象
     deleteTodo(id){
       if(confirm('确定删除吗？')){
@@ -78,10 +86,12 @@ export default {
   mounted() {
     this.$bus.$on('checkTodo',this.checkTodo)
     this.$bus.$on('deleteTodo',this.deleteTodo)
+    this.$bus.$on('updateTodo',this.updateTodo)
   },
   beforeDestroy() {
     this.$bus.$ff('checkTodo')
     this.$bus.$ff('deleteTodo')
+    this.$bus.$ff('updateTodo')
   },
 }
 </script>
@@ -109,6 +119,13 @@ export default {
     color: #fff;
     background-color: #da4f49;
     border: 1px solid #bd362f;
+  }
+
+  .btn-edit {
+    color: #fff;
+    background-color: skyblue;
+    border: 1px solid rgb(14, 150, 204);
+    margin-right: 5px;
   }
 
   .btn-danger:hover {

@@ -3,9 +3,17 @@
         <li>
             <label>
                 <input type="checkbox" :checked="todoObject.done" @click="handleCheck(todoObject.id)"/>
-                <span>{{todoObject.title}}</span>
+                <span v-show="!todoObject.isEdit">{{todoObject.title}}</span>
+                <input
+                type="text" 
+                v-show="todoObject.isEdit"  
+                :value="todoObject.title"
+                @blur="handleBlur(todoObject,$event)"
+                ref="inputTitle"
+                />
             </label>
             <button class="btn btn-danger" @click="handleDelete(todoObject.id)">删除</button>
+            <button v-show="!todoObject.isEdit" class="btn btn-edit" @click="handleEdit(todoObject)">编辑</button>
         </li>
     </div>
 </template>
@@ -26,6 +34,23 @@
             handleDelete(id){
                 //this.deleteTodo(id);
                 this.$bus.$emit('deleteTodo',id); //改为全局事件总线进行组件之间通信
+            },
+            //编辑
+            handleEdit(todoObject){
+              if(Object.prototype.hasOwnProperty.call(todoObject,'isEdit')){
+                todoObject.isEdit = true;
+              }else{
+                this.$set(todoObject,'isEdit',true);
+              }
+              this.$nextTick(function(){
+                this.$refs.inputTitle.focus();
+              })
+            },
+            //失去焦点回调（真正执行修改逻辑）
+            handleBlur(todoObject,e){
+              todoObject.isEdit = false;
+              if(!e.target.value.trim()) return alert('输入不能为空！')
+              this.$bus.$emit('updateTodo',todoObject.id,e.target.value)
             }
         },
     }
