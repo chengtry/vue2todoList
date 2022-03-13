@@ -89,9 +89,9 @@ export default {
     this.$bus.$on('updateTodo',this.updateTodo)
   },
   beforeDestroy() {
-    this.$bus.$ff('checkTodo')
-    this.$bus.$ff('deleteTodo')
-    this.$bus.$ff('updateTodo')
+    this.$bus.$off('checkTodo')
+    this.$bus.$off('deleteTodo')
+    this.$bus.$off('updateTodo')
   },
 }
 </script>
